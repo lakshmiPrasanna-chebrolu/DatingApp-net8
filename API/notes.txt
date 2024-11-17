@@ -1,0 +1,43 @@
+Entity Frame work:
+
+An object relational Mapper(ORM)
+Translates our code into SQL commands that update our tables in the database.
+When we add entity framewwork, we need to create an important class that derives from the DBContext class, which comes with EF .
+
+This class acts as a bridge between our domain or entity classes and the database
+
+DBcontext class is the primary class we use for interacting with our database.
+
+Example: 
+Entity framework, allows us to use linqqueries which are similar as follows.
+
+DBContext.Users.Add(new User{ Id=4, UserName= Lakshmi}) --- > SQliteProvider --> INSERT INTO Users(Id, Name) Values (4, Lakshmi)
+
+
+Featues:
+ Querying
+ Change Tracking
+ Saving(Insert, update,delete) -- Save changes method
+ Concurrency
+ Transactions
+ Caching 
+ Built- in conventions  (EF schema for ID )
+ Configurations
+ Migrations
+
+ when we want to use a class from different name space , we use using statements
+ A DBContext instance represens a session with the database and  can be used to query and save instances of our entities.
+ DB context  is a combination of the unit of work and repository pattern
+
+ A DbSet can be used to query and save instances of TEntity. 
+ LINQ queries against a DbSet will be translated into queries against the database.
+
+
+[ApiController]
+Indicates that a type and all derived types are used to serve HTTP API responses.
+
+Controllers decorated with this attribute are configured with features and behavior targeted at improving the developer experience for building APIs.
+
+When decorated on an assembly, all controllers in the assembly will be treated as controllers with API behavior.
+
+
