@@ -40,7 +40,7 @@ Controllers decorated with this attribute are configured with features and behav
 
 When decorated on an assembly, all controllers in the assembly will be treated as controllers with API behavior.
 
-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
+
 
 
 Change the allowedhosts from appsettings .json to https:localhost/5000,
