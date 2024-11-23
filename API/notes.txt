@@ -40,4 +40,58 @@ Controllers decorated with this attribute are configured with features and behav
 
 When decorated on an assembly, all controllers in the assembly will be treated as controllers with API behavior.
 
+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
+
+
+Change the allowedhosts from appsettings .json to https:localhost/5000,
+
+OnInit:
+
+A lifecycle hook that is called after Angular has initialized all data-bound properties of a directive. 
+Define an ngOnInit() method to handle any additional initialization tasks.
+
+http=inject(HttpClient) --- Dependency injection
+
+observable needs to be subscribed to perform the action 
+http.get () -- GET request that interprets the body as JSON and returns the response body as an object parsed from JSON
+should unsubscribe once subscribed to observable (otherwise it is a memory consuming and resource killing process.), 
+http request will definetly unsubscribe once the request is completed.
+
+structural Directive -- ngFor
+
+commands:
+nvm -v
+nvm install lts
+nvm list
+nvm use newest
+
+node -v
+dotnet dev-certs https --trust
+dotnet run
+dotnet tool install --global dotnet-ef --version 8.0.11
+dotnet tool list -g
+dotnet ef
+dotnet ef migrations -h
+dotnet ef migrations add InitialCreate -o Data/Migrations
+dotnet ef database -h
+dotnet ef database update
+dotnet watch
+dotnet new list
+dotnet new gitignore
+
+git add .
+git commit -m " "
+git remote add origin "repository link.git"
+git pull
+git push
+git push --set-upstream origin main
+
+git branch -m main
+git status
+git log
+git pull --tags origin main --allow-unrelated-histories
+
+ng serve
+
+
 
