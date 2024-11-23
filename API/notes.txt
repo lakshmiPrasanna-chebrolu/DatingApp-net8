@@ -40,6 +40,61 @@ Controllers decorated with this attribute are configured with features and behav
 
 When decorated on an assembly, all controllers in the assembly will be treated as controllers with API behavior.
 
+Authentication:
+1. storing in the clear text --use ssl security to encrypt the data
+2.  Hashing the password
+
+var user=  _repo.Users.Find(username);
+ var passwordHash= CalculatePasswordHash(password);
+ if(passwordHash!=user.PasswordHash){
+    return UnAuthorized
+ }
+
+ Problems with the Using the PasswordHash:
+1. if two users use the same password, then their PasswordHashes will be same. 
+this gives an hint on decode the password to the attackers. If database is compromised.
+ 2. Using the just hashing a password -- there are dictionaries of every possible commonly used or 
+ combination of different passwords available, and their hashes have been already beeen computed
+ in various different algorithms.
+ they can check the hashes and decode the password.
+3. Hashing and salting the password.
+// PasswordSalt is a randomised string passed to the CalculatePasswordHash to randomise the password hash.
+even though the users have same passwords , the hashes will be different.
+var user =_repo.Users.Find(username);
+var passwordHash=CalculatePasswordHash(password,user.PasswordSalt);
+if(passwordHash!=User.PasswordHash){
+    return UnAuthorized;
+}
+
+JSON Web Tokens -- JWT 
+how to authenticate an Api
+ tokens are good to use with in the Api
+ Industry standard tokens 
+ self contained 
+ It contains credentials
+ claims
+ other information
+Basically long string seperated by the period(.)
+ JWT Structure
+ Header of the token: Algorithm and type
+ {"alg" : "algorithm code", "typ":"JWT}
+Payload (Data)
+claims-- claiming to be something
+"nameid:,"role","nbf", "exp", "iat"
+
+Verify Signature
+Signature is encrypted. -- by the server itself.
+
+send username +Password 
+validate credentials and return a JWT
+sends JWT with further requests
+server verifies JWT and sends back the response.
+
+Benefits :
+No session to manage - JWTs are self contained tokens
+Portable- A single token can be used with multiple backends
+No cookies required- mobile friendly
+Performance- Once a token is issued, there is no need to make a database request to verify a users authenticationn.
 
 
 
@@ -58,6 +113,10 @@ should unsubscribe once subscribed to observable (otherwise it is a memory consu
 http request will definetly unsubscribe once the request is completed.
 
 structural Directive -- ngFor
+
+@for (user of users ; track index) -- is a direct flow of angular.
+
+
 
 commands:
 nvm -v
@@ -92,6 +151,18 @@ git log
 git pull --tags origin main --allow-unrelated-histories
 
 ng serve
+
+creating the self signed certificates 
+ng --version
+choco install mkcert
+mkcert -install
+mkdir ssl
+cd ssl
+// now install the certificate
+mkcert localhost
+
+After installing the certificate update the angular .json file for serve with options 
+and add the ssl path, sslCert, sslKey paths to the file.
 
 
 
