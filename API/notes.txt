@@ -67,7 +67,7 @@ if(passwordHash!=User.PasswordHash){
 }
 
 JSON Web Tokens -- JWT 
-how to authenticate an Api
+how to authenticate an Api as doesnt maintain the session state.
  tokens are good to use with in the Api
  Industry standard tokens 
  self contained 
@@ -81,13 +81,24 @@ Basically long string seperated by the period(.)
 Payload (Data)
 claims-- claiming to be something
 "nameid:,"role","nbf", "exp", "iat"
+nbf- not before 
+exp- expiry time
+iat- issued at the time
 
 Verify Signature
 Signature is encrypted. -- by the server itself.
 
 send username +Password 
-validate credentials and return a JWT
-sends JWT with further requests
+
+validate credentials and return a JWT token (that the client will store locally on their machine)
+--- typically we often use browser storage to hold on to the token so that 
+---we can send the JSON web token with every single request
+
+sends JWT with further requests(Authentication header to the request)
+-- then the server will take a look at the token and verify that the token is valid.
+-- the server, that signed the token will have access to the private key thats stored on the server
+-- is able to verify that the token is valid without needing to make a call to a database.
+
 server verifies JWT and sends back the response.
 
 Benefits :
@@ -96,9 +107,34 @@ Portable- A single token can be used with multiple backends
 No cookies required- mobile friendly
 Performance- Once a token is issued, there is no need to make a database request to verify a users authenticationn.
 
+DependencyInjection --
+Lifetimes - singleton,Transient,Scoped
+AddCors,AddDbContext all are built-in services 
+when custom services is being injected, we need to tell the dotnet how long we want a service to live for.
 
+AddSingleton-- singleton services are created the first time they are requested and then every subsequent request
+                for that service will use the exact same instance.
+                --this type of lifetime is good for when we want to cache data or 
+                  maintain a state that should be shared across the whole application.
+
+AddTransient --- Transient services are created each time they are requested from the service container.
+                lightweight and stateless services
+
+AddScoped ---these services are created once per the client request(Http request).
 
 Change the allowedhosts from appsettings .json to https:localhost/5000,
+
+Need to install , 2 nuget packages
+Microsoft.AspNetCore.Authentication.JwtBearer -- to authenticate the user
+System.IdentityModel.Tokens.Jwt -- To create the token and encrypt the key.
+
+use the descriptor --[Authorize] [AllowAnonymous]
+
+after generating the jwt token , 
+we need to authenticate the APIs which and all needs to be authorized 
+so, we need to add in the request pipeline (Middleware) -- Add the Authentication and once after the build is done.
+UseAuthentication(), and UseAuthorization()
+
 
 OnInit:
 

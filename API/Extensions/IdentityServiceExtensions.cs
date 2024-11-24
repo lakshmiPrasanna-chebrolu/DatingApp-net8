@@ -12,6 +12,7 @@ public static class IdentityServiceExtensions
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
         {
+            //using the same symmetric key to decrypt.
             var tokenKey = configuration["TokenKey"] ?? throw new Exception("TokenKey not found");
             options.TokenValidationParameters = new TokenValidationParameters
             {
