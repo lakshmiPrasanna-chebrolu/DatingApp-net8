@@ -152,7 +152,12 @@ structural Directive -- ngFor
 
 @for (user of users ; track index) -- is a direct flow of angular.
 
+two types of forms - Angular forms and reactive forms.
 
+observables and signals:
+new standard for managing async data included in ES7. - Introduced in angular v2.
+Observables are lazy collectionsof mltiple values over time.
+You can think of observables like a newsletter
 
 commands:
 nvm -v
