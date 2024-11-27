@@ -17,7 +17,7 @@ namespace API.Controllers
             if(await UserExists(registerDto.Username)){
                 return BadRequest("User with the same username already exist");
             }
-            using var hmac=new HMACSHA512();
+            /*using var hmac=new HMACSHA512();
             var user = new AppUser{
                 UserName=registerDto.Username.ToLower(),
                 PasswordHash=hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
@@ -28,7 +28,8 @@ namespace API.Controllers
             return new UserDto{
                 Username=user.UserName,
                 Token=tokenService.CreateToken(user)
-            };
+            };*/
+            return Ok();
 
         }
 

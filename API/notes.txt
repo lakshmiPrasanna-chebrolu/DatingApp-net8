@@ -135,6 +135,47 @@ we need to authenticate the APIs which and all needs to be authorized
 so, we need to add in the request pipeline (Middleware) -- Add the Authentication and once after the build is done.
 UseAuthentication(), and UseAuthorization()
 
+Create a middleware pipeline with WebApplication:
+The ASP .NET Core request pipeline consists of a sequence of request delegates , called one after the other. 
+The following diagram demonstrates the concept. The thread of execution follows the arrows
+
+Request ---> Middleware1 (executes the logic and goes next()) ----> Middleware2 (Executes the logic and goes next()) 
+                                                                        |
+                                                                        |
+Response   <---- (Executes more logic and goes previous)Middleware1<--- (Executes more logic)
+
+Each delegate can perform operations before and after the next delegate . 
+Exception-handling delegates should be called early in the pipeline.
+so they can catch exceptions that occur in later stages of the pipeline.
+
+Repository pattern
+A Repository mediates between the domain and data mapping layers, 
+acting like an in-memory domain object collection. - Martin fowler
+
+web server (kestrel)--->Controllers ---->DbContext --> database
+Adding a layer of abstraction on DbContext
+web server (kestrel)--->Controllers --->  IRepository ---->DbContext --> database
+unit Test--> Controller --> MockRespository
+example: 
+    var user= new User{UserName='lakshmi'};
+    var mockRepo=MockRespository.GenerateMock<IRepository>();
+    mockRepo.Expect(x=> X.GetUser("bob")).Return(user);
+    //Whenever the GetUser method is called return user object created above.
+
+
+Encapsulates the logic --(controllers will have access to the only 4 methods.)
+Reduces Duplicate query logic-- 
+Promotes testability
+Decouples application from persistence framework
+All database queries are centralized and not scattered throughout the app.
+Allows us to change ORM easily.
+
+DisAdvantages
+Abstraction of an abstraction 
+(as entityframework itself is an abstraction over database)
+Each root entity should have its own repository which means more code.
+Also need to implement the unitOfWork pattern to control transactions
+
 
 OnInit:
 
