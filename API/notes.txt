@@ -249,3 +249,6 @@ and add the ssl path, sslCert, sslKey paths to the file.
 npm i ng-gallery --legacy-peer-deps
 npm i ng-gallery @angular/cdk --legacy-peer-deps
 
+ng g guard _guards/prevent-unsaved-changes --skip-t
+ests
+
